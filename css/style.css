@@ -1,0 +1,218 @@
+/* Step #1: Logo Animation using keyframes
+   Creates animation that grows the logo from 25px to 475px width
+   while simultaneously fading in (opacity 0 to 1)
+   Animation runs for 5 seconds only when page loads */
+@keyframes grow-fade {
+    0% {
+        width: 25px;
+        opacity: 0;
+    }
+    100% {
+        width: 475px;
+        opacity: 1;
+    }
+}
+
+/* Apply the grow-fade animation to the logo element */
+#logo {
+    animation: grow-fade 5s;
+}
+
+/* Step #2
+Edit the body element to use the Poppins font (using Google fonts) with serif as a backup. 
+It should also use the image “concrete_seamless.png” as a background-image with a backup color of #f1f1f1. */
+/* Importing Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+body {
+    font-family: 'Poppins', serif;
+    background-image: url("../images/concrete_seamless.png");
+    background-color: #f1f1f1;
+}
+
+/* Step #3: Header styling with flexbox. This uses flex display to create a column layout for mobile view. 
+It also centers all elements horizontally with align-items: center */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Step #4: Navigation links styling with flexbox. 
+This creates a horizontal row of navigation items, but it does not modify list items or links directly as per instructions. 
+Only the container is modified to use flex */
+.nav_links {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Step #5: Link styling. 
+This sets the same color for both unvisited and visited links, and makes sure there is consistency in link appearance throughout the page */
+a {
+    color: #288088;
+}
+
+a:visited {
+    color: #288088;
+}
+
+/* Step #6: Card header styling. Uses direct child selector (>) to target ONLY headers that are direct children of card class. 
+Also applies blue background, border, padding, and rounded corners at top */
+.card > header {
+    background: #288088;
+    border: solid 2px #45ADAD;
+    padding: 20px 0 20px 0; /* top, right, bottom, left */
+    border-radius: 50px 50px 0 0;
+}
+
+/* Fix for border-radius issue by adding overflow: hidden to card class to ensure border-radius displays correctly
+This is the second selector needed to fix the curving corners problem */
+.card {
+    overflow: hidden;
+}
+
+/* Step #7: Card class styling with flexbox. 
+This sets initial "size" of 450px using flex: 0 1 450px property. 
+As for the flex, "0 1 450px" means don't grow beyond content, can shrink if needed, preferred basis is 450px. 
+Also uses column direction to stack card content vertically.
+Adds space-between to distribute content evenly within card */
+.card {
+    flex: 0 1 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Step #8: Pricing section styling with flexbox.
+Creates a column layout for mobile view.
+Centers cards both horizontally and vertically.
+.Works together with card styling to create proper layout */
+.pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Step #9: Gallery image styling.
+Applies 10px solid #50C7C7 border to all images in gallery.
+Adds 10px margin on all sides of each image.
+Sets width to 300px as specified. */
+.gallery img {
+    border: 10px solid #50C7C7;
+    margin: 10px;
+    width: 300px;
+}
+
+/* Step #10: Gallery class styling with flexbox.
+Uses flex with row direction and wrap to create responsive gallery.
+Images will wrap to next line as screen size decreases.
+Centers gallery items horizontally with justify-content: center. */
+.gallery {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+/* Media query for screens greater than 900px */
+@media screen and (min-width: 900px) {
+
+    /* Step #11: Header and nav links styling for larger screens.
+    Changes header to a row layout with elements spread out as far as possible using space-between.
+    This positions the logo at the far left and nav links at the far right of the header.
+    Uses flex properties instead of absolute positioning as specified in the instructions */
+
+    /* Step #13: Challenge problem - Sticky header.
+    The position: sticky and top: 0 properties in the header selector above make the header
+    remain visible at the top of the screen when scrolling down.
+    Adding background-color: white ensures content doesn't show through the header.
+    This creates the "always visible" header effect required in the instructions */
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background-color: white;
+    }
+
+    /* Step #12: Pricing and cards styling for larger screens.
+    Changes pricing container to use row layout with wrap to allow multiple cards per row.
+    Centers cards horizontally within the container.
+    Sets card flex basis to 275px to control their width while allowing for flex behavior.
+    This ensures all cards have the same width but can have different heights as specified */
+    .pricing {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        flex: 0 1 275px;
+    }
+}
+
+/* Step #14: Reduced motion preferences.
+Disables the logo animation when user has selected the reduced motion accessibility preference.
+This allows the logo to appear normally but without the animation effect,
+making the site more accessible for users who experience motion sickness or have vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+    #logo {
+        animation: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    /* Step #15: Change font for print.
+    Sets the font family to Arial with Helvetica as a backup for print mode.
+    This ensures better readability in printed documents */
+    /* Step #16: Remove background image for print.
+    The background-image: none property in the body selector above removes the
+    concrete_seamless.png background when printing to save ink and improve clarity */
+
+    body {
+        font-family: Arial, Helvetica;
+        background-image: none;
+    }
+    
+    /* Step #17: Nav links spacing for print.
+    Adjusts the navigation links spacing using space-around to distribute them evenly
+    across the available width with space on both ends */
+    .nav_links {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* Step #18: Pricing alignment for print.
+    Changes the pricing container to horizontal layout and aligns items at the bottom.
+    The align-items: flex-end property ensures all cards align along their bottom edges
+    regardless of their individual heights */
+    .pricing {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    /* Step #19: Card styling for print.
+    Adds a 2px solid border with color #45ADDD to all card elements.
+    Sets flex-basis to 325px to control their width in print layout */
+    .card {
+        border: 2px solid #45ADDD;
+        flex-basis: 325px;
+    }
+
+    /* Step #20: Hide gallery for print.
+    Sets display: none on the gallery class to completely hide all gallery elements when printing.
+    This saves ink and focuses the printed document on the important content */
+    .gallery {
+        display: none;
+    }
+
+    /* Step #21: Challenge problem - Add thumbs up entity.
+    Adds the thumbs up emoji before each list item in the cards without using list-style-type.
+    Uses the ::before pseudo-element with content property to insert the thumbs up character.
+    Adds margin-right to create space between the thumbs up and the list item text */
+    .card li::before {
+        content: "👍";
+        margin-right: 8px;
+    }
+}
